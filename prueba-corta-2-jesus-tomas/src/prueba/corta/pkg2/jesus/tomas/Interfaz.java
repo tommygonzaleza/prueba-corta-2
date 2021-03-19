@@ -230,6 +230,9 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        int numero = Integer.parseInt(jTextField2.getText());
+        arbol.Delete(numero, arbol.getRoot());
+        jTextField2.setText("");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

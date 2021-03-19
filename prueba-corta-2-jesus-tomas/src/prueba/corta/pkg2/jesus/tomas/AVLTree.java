@@ -135,6 +135,10 @@ public class AVLTree {
         return aux;
     }
     
+    /**
+     * Este método inserta un nuevo nodo en el arbol.
+     * @param data Número que se le va a asignar al nodo que se insertará en el arbol. 
+     */
     public void insert(int data){
         NodeAVL newNode = new NodeAVL(data);
         if (this.root == null) {
@@ -155,6 +159,12 @@ public class AVLTree {
         }
         balance(newNode);
     }
+    
+    /**
+     * Este método balancea el arbol.
+     * @param a Nodo que se va a rotar para balancear el arbol.
+     * @return NodeAVL Nodo que se va a rotar para balancear el arbol.
+     */
     public NodeAVL balance(NodeAVL a){
         if (a==null) {
             return a;
@@ -178,6 +188,13 @@ public class AVLTree {
         a.setFe(Math.max(GetFE(a.getLeft()),GetFE(a.getRight()))+1);
         return a;
     }
+    
+    /**
+     * Este método busca el padre del nodo que se inserta.
+     * @param root Nodo del padre de un nodo nodo.
+     * @param data Número que se le va a insertar al nodo.
+     * @return NodeAVL Nodo del padre.
+     */
     public NodeAVL SearchFather(NodeAVL root, int data) {
         NodeAVL encontrado = null;
         if (data < root.getData()) {
@@ -203,6 +220,12 @@ public class AVLTree {
         }
         return encontrado;
     }
+    
+    /**
+     * Este método devuelve el nodo que tenga el valor numérico más alto.
+     * @param node Nodo que se va a comparar.
+     * @return NodeAVL El nodo con valor numérico más alto.
+     */
     public NodeAVL Max (NodeAVL node) 
     {
         if(node.getRight()==null)
@@ -214,6 +237,12 @@ public class AVLTree {
         }
     }
     
+    /**
+     * Este método elimina un nodo y lo devuelve.
+     * @param valor Número que representa el valor del nodo que se desea eliminar.
+     * @param root Nodo raíz del arbol.
+     * @return NodeAVL Nodo que se elimina.
+     */
     public NodeAVL Delete(int valor, NodeAVL root)
     {
         NodeAVL aux= root;
