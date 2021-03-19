@@ -16,6 +16,7 @@ public class PruebaCorta2JesusTomas {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        // Las dos líneas de abajo permiten ver la interfaz
         Interfaz i = new Interfaz();
         i.setVisible(true);
     }
