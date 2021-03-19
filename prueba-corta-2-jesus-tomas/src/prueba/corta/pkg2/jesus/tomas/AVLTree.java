@@ -1,5 +1,7 @@
 package prueba.corta.pkg2.jesus.tomas;
 
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -152,25 +154,26 @@ public class AVLTree {
      * Este método inserta un nuevo nodo en el arbol.
      * @param data Número que se le va a asignar al nodo que se insertará en el arbol. 
      */
-    public void insert(int data){
-        NodeAVL newNode = new NodeAVL(data);
-        if (this.root == null) {
-            this.root = newNode;
-
-        } else {
-            NodeAVL nodeFather = this.SearchFather(this.root, data);
-            if (nodeFather == null) {
-                System.out.println("El elemento ya existe");
-            } else if (nodeFather.getData() > newNode.getData()) {
-                nodeFather.setLeft(newNode);
-                
-            } else if (nodeFather.getData() < newNode.getData()) {
-                nodeFather.setRight(newNode);
-               
-                
-            }
+    private NodeAVL Auxinsert(NodeAVL x, int data) {
+        NodeAVL nuevo= new NodeAVL(data);
+        if (x == null) return nuevo;
+        
+        if (data < x.getData()) {
+            x.setLeft(Auxinsert(x.getLeft(),data)); 
         }
-        balance(newNode);
+        else if (data > x.getData()) {
+            x.setRight(Auxinsert(x.getRight(),data)); 
+        }
+        else {
+            System.out.println("El elemento ya se encuentra");
+            //return x;
+        }
+        //x.size = 1 + size(x.left) + size(x.right);
+        x.setFe(1 + Math.max(GetFE(x.getLeft()), GetFE(x.getRight()))); 
+        return balance(x);
+    }
+    public void insert(int data) {
+        root = Auxinsert(root, data);
     }
     
     /**
@@ -235,18 +238,15 @@ public class AVLTree {
     }
     
     /**
-     * Este método devuelve el nodo que tenga el valor numérico más alto.
+     * Este método devuelve el nodo que tenga el valor numérico más bajo.
      * @param node Nodo que se va a comparar.
-     * @return NodeAVL El nodo con valor numérico más alto.
+     * @return NodeAVL El nodo con valor numérico más bajo del arbol.
      */
-    public NodeAVL Max (NodeAVL node) 
-    {
-        if(node.getRight()==null)
-        {
-            return node;
-        }else
-        {
-        return Max(node.getRight());
+    public NodeAVL Min(NodeAVL n) {
+        if (n.getLeft() == null) {
+            return n;
+        } else {
+            return Min(n.getLeft());
         }
     }
     
@@ -256,45 +256,44 @@ public class AVLTree {
      * @param root Nodo raíz del arbol.
      * @return NodeAVL Nodo que se elimina.
      */
-    public NodeAVL Delete(int valor, NodeAVL root)
-    {
-        NodeAVL aux= root;
-        if(valor<root.getData())
-        {
-            root.setLeft(Delete(valor,root.getLeft()));
-        }else
-        {
-            if(valor > root.getData())
-            {
-                root.setRight((Delete(valor,root.getRight())));
-            }else
-            {
-                if(root.getLeft()!=null && root.getRight()!=null)
-                {
-                    NodeAVL temp= root;
-                    NodeAVL maxLeft= Max(root.getLeft());
-                    root.setData(maxLeft.getData());
-                    temp.setLeft(Delete(maxLeft.getData(),temp.getLeft()));
-                }else
-                {
-                    if (root.getLeft()!=null)
-                    {
-                        aux=root.getLeft();
-                    }else
-                    {
-                        if(root.getRight()!=null)
-                        {
-                            aux=root.getRight();
-                        }else
-                        {
-                            aux=null;
-                        }
-                    }
-                }
+    public NodeAVL deleteMin(NodeAVL x) {
+        if (x.getLeft() == null) return x.getRight();
+        x.setLeft(deleteMin(x.getLeft()));
+        
+        x.setFe(1 + Math.max(GetFE(x.getLeft()), GetFE(x.getRight()))); 
+        return balance(x);
+    }
+    public NodeAVL auxdelete(NodeAVL x, int val) {
+        if (x==null) {
+            JOptionPane.showMessageDialog(null, "El numero no se encuentra");
+        }
+        else if (val < x.getData()) {
+            x.setLeft(auxdelete(x.getLeft(), val)); 
+        }
+        else if (val > x.getData()) {
+            x.setRight(auxdelete(x.getRight(), val)); 
+        }
+        else {
+            if (x.getLeft() == null) {
+                return x.getRight();
+            }
+            else if (x.getRight() == null) {
+                return x.getLeft();
+            }
+            else {
+                NodeAVL y = x;
+                x =Min(y.getRight());
+                x.setRight(deleteMin(y.getRight())); 
+                x.setLeft(y.getLeft()); 
             }
         }
-        balance(aux);
-        return aux;  
+        
+        x.setFe(1 + Math.max(GetFE(x.getLeft()), GetFE(x.getRight()))); 
+        return balance(x);
+    }  
+    
+    public void delete(int val) {
+        root = auxdelete(root, val);
     }
     
     /**
