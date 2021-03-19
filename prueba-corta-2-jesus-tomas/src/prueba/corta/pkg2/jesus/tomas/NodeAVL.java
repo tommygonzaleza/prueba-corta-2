@@ -93,4 +93,20 @@ public class NodeAVL {
     public void setFe(int fe) {
         this.fe = fe;
     }
+    
+    /**
+     * Este método devuelve la cantidad de nodos relacionados al arbol cuya raiz es el nodo que pasamos.
+     * @param n Nodo raiz que se va a evaluar.
+     * @return int Número que representa la cantidad de nodos.
+     */
+    public int nodosCompletos(NodeAVL n){
+        if(n == null){
+            return 0;
+        }else{
+            if(n.getLeft()!=null && n.getRight()!=null){
+                return nodosCompletos(n.getLeft())+nodosCompletos(n.getRight())+1;
+            }
+            return nodosCompletos(n.getLeft())+nodosCompletos(n.getRight());
+        }
+    }
 }

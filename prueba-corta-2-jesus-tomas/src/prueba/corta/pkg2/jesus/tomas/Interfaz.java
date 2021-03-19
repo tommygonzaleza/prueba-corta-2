@@ -5,6 +5,8 @@
  */
 package prueba.corta.pkg2.jesus.tomas;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Usuario
@@ -22,6 +24,20 @@ public class Interfaz extends javax.swing.JFrame {
      * Crea el arbol
      */
     AVLTree arbol = new AVLTree();
+    Canvas canvas = new Canvas();
+    Controller controller = new Controller(canvas, arbol);
+    
+    public String mostrarArbol(AVLTree arbol){
+        Canvas canvas = new Canvas();
+        Controller controller = new Controller(canvas, arbol);
+        controller.iniciar();
+        JFrame ventana = new JFrame();
+        ventana.getContentPane().add(canvas);
+        ventana.setDefaultCloseOperation(3);
+        ventana.setSize(600, 600);
+        ventana.setVisible(true);
+        return "Arbol mostrado.";
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -226,6 +242,7 @@ public class Interfaz extends javax.swing.JFrame {
         int numero = Integer.parseInt(jTextField1.getText());
         arbol.insert(numero);
         jTextField1.setText("");
+        mostrarArbol(arbol);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -233,11 +250,13 @@ public class Interfaz extends javax.swing.JFrame {
         int numero = Integer.parseInt(jTextField2.getText());
         arbol.Delete(numero, arbol.getRoot());
         jTextField2.setText("");
+        mostrarArbol(arbol);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         arbol.printInorder(arbol.getRoot());
+        mostrarArbol(arbol);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

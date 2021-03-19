@@ -53,6 +53,19 @@ public class AVLTree {
             return search(d, root.getLeft());
         }
     }
+    
+    /**
+     * Este método devuele la altura del arbol
+     * @param root Raíz del arbol
+     * @return int Número cuyo valor representa la altura del arbol.
+     */
+    public int getHeight(NodeAVL root){
+        if(root==null){
+            return 0;
+        } else {
+            return Math.max(getHeight(root.getLeft()), getHeight(root.getRight()))+1;
+        }
+    }
 
     /**
      * Este método devuelve el peso del nodo.
