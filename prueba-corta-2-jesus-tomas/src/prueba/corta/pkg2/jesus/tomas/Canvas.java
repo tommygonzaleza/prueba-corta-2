@@ -35,7 +35,7 @@ public class Canvas extends JPanel {
         else {
             int EXTRA = n.nodosCompletos(n) * (ANCHO/2);
             g.drawOval(x, y, DIAMETRO, DIAMETRO);
-            g.drawString(Integer.toString(n.getData()), x + 12, y + 18);
+            g.drawString(Integer.toString(n.getData()), x + 10, y + 15);
             if (n.getLeft() != null){
                 g.drawLine(x+RADIO, y+RADIO, x-ANCHO-EXTRA+RADIO, y+ANCHO+RADIO);
             }
