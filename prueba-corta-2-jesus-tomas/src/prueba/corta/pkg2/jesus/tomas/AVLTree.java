@@ -165,10 +165,8 @@ public class AVLTree {
             x.setRight(Auxinsert(x.getRight(),data)); 
         }
         else {
-            System.out.println("El elemento ya se encuentra");
-            //return x;
+            JOptionPane.showMessageDialog(null,"El elemento ya se encuentra");
         }
-        //x.size = 1 + size(x.left) + size(x.right);
         x.setFe(1 + Math.max(GetFE(x.getLeft()), GetFE(x.getRight()))); 
         return balance(x);
     }
@@ -344,10 +342,4 @@ public class AVLTree {
 
         }
     }
-    
-    
-    
-
-    
-
 }
