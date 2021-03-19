@@ -17,6 +17,8 @@ public class Interfaz extends javax.swing.JFrame {
     public Interfaz() {
         initComponents();
     }
+    
+    AVLTree arbol = new AVLTree();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +78,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel6.setText("Eliminar número del arbol:");
 
         jButton6.setText("Ver Arbol");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -89,6 +96,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel4.setText("Tomás González");
 
         jButton7.setText("Eliminar número");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Insertar número");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -183,8 +195,6 @@ public class Interfaz extends javax.swing.JFrame {
         } else {
             evt.consume();
             getToolkit().beep();
-            
-
         }
     }//GEN-LAST:event_jTextField1KeyTyped
 
@@ -196,14 +206,24 @@ public class Interfaz extends javax.swing.JFrame {
         } else {
             evt.consume();
             getToolkit().beep();
-            
-
         }
     }//GEN-LAST:event_jTextField2KeyTyped
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        int numero = Integer.parseInt(jTextField1.getText());
+        arbol.insert(numero);
+        jTextField1.setText("");
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        arbol.printInorder(arbol.getRoot());
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
