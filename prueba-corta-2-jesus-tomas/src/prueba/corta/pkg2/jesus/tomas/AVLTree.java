@@ -138,14 +138,126 @@ public class AVLTree {
         }
         return newFather;
     }
-    public void insert(int d){
-        NodeAVL newNode= new NodeAVL(d);
-        if (root==null) {
-            root=newNode;
+    
+    public void insert(int data){
+        NodeAVL newNode = new NodeAVL(data);
+        if (this.root == null) {
+            this.root = newNode;
+
+        } else {
+            NodeAVL nodeFather = this.SearchFather(this.root, data);
+            if (nodeFather == null) {
+                System.out.println("El elemento ya existe");
+            } else if (nodeFather.getData() > newNode.getData()) {
+                nodeFather.setLeft(newNode);
+                
+            } else if (nodeFather.getData() < newNode.getData()) {
+                nodeFather.setRight(newNode);
+               
+                
+            }
+        }
+        balance(newNode);
+    }
+    public NodeAVL balance(NodeAVL a){
+        if (a==null) {
+            return a;
+        }
+        if (GetFE(a.getLeft())-GetFE(a.getRight())>1) {
+            if (GetFE(a.getLeft().getLeft())>= GetFE(a.getLeft().getRight())) {
+                a=LeftRotation(a);
+            }else{
+                a=LeftRotation1(a);
+            }
         }else{
-            root=insertAux(newNode,root);
+            if (GetFE(a.getRight())-GetFE(a.getLeft())>1) {
+                if (GetFE(a.getRight().getRight())>= GetFE(a.getRight().getLeft())){
+                    a=RightRotation(a);
+                }else{
+                    a=RightRotation1(a);
+                }
+                
+            }
+        }
+        a.setFe(Math.max(GetFE(a.getLeft()),GetFE(a.getRight()))+1);
+        return a;
+    }
+    public NodeAVL SearchFather(NodeAVL root, int data) {
+        NodeAVL encontrado = null;
+        if (data < root.getData()) {
+            if (encontrado != null) {
+                return encontrado;
+
+            } else if (root.getLeft() != null) {
+                encontrado = SearchFather(root.getLeft(), data);
+
+            } else {
+                return root;
+            }
+        } else if (data > root.getData()) {
+            if (encontrado != null) {
+                return encontrado;
+
+            } else if (root.getRight() != null) {
+                encontrado = SearchFather(root.getRight(), data);
+
+            } else {
+                return root;
+            }
+        }
+        return encontrado;
+    }
+    public NodeAVL Max (NodeAVL node) 
+    {
+        if(node.getRight()==null)
+        {
+            return node;
+        }else
+        {
+        return Max(node.getRight());
         }
     }
+    public NodeAVL Delete(int valor, NodeAVL root)
+    {
+        NodeAVL aux= root;
+        if(valor<root.getData())
+        {
+            root.setLeft(Delete(valor,root.getLeft()));
+        }else
+        {
+            if(valor > root.getData())
+            {
+                root.setRight((Delete(valor,root.getRight())));
+            }else
+            {
+                if(root.getLeft()!=null && root.getRight()!=null)
+                {
+                    NodeAVL temp= root;
+                    NodeAVL maxLeft= Max(root.getLeft());
+                    root.setData(maxLeft.getData());
+                    temp.setLeft(Delete(maxLeft.getData(),temp.getLeft()));
+                }else
+                {
+                    if (root.getLeft()!=null)
+                    {
+                        aux=root.getLeft();
+                    }else
+                    {
+                        if(root.getRight()!=null)
+                        {
+                            aux=root.getRight();
+                        }else
+                        {
+                            aux=null;
+                        }
+                    }
+                }
+            }
+        }
+        balance(aux);
+        return aux;  
+    }
+    
     public void printPreorder(NodeAVL root) {
         System.out.println(root.getData());
         if (root.getLeft() != null) {
