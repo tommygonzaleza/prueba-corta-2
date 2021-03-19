@@ -14,26 +14,34 @@ public class AVLTree {
 
     private NodeAVL root;
 
+    // Constructor de la clase AVLTree
     public AVLTree() {
         this.root = null;
 
     }
 
     /**
-     * @return the root
+     * Este método devuelve el nodo de la raíz.
+     * @return NodeAVL Devuelve el nodo de la raíz.
      */
     public NodeAVL getRoot() {
         return root;
     }
 
     /**
-     * @param root the root to set
+     * Este método le asigna una raíz al arbol.
+     * @param root Nodo de raíz que se ve a asignar al arbol.
      */
     public void setRoot(NodeAVL root) {
         this.root = root;
     }
 
-    //Buscar
+    /**
+     * Este método busca un nodo en el arbol.
+     * @param d Número del nodo que se desea buscar.
+     * @param root Nodo de la raíz.
+     * @return NodeAVL Devuelve el nodo en el que se ubica el número que se esta buscando.
+     */
     public NodeAVL search(int d, NodeAVL root) {
         if (this.root == null) {
             return null;
@@ -46,6 +54,11 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Este método devuelve el peso del nodo.
+     * @param x Nodo del que se quiere obtener su peso.
+     * @return int Número con el valor del peso.
+     */
     public int GetFE(NodeAVL x) {
         if (x == null) {
             return -1;
@@ -54,6 +67,12 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Este método devuelve un número que contiene el mayor entre dos números.
+     * @param x Número que se va a comparar.
+     * @param d Número que se va a comparar.
+     * @return int El número mayor entre los dos.
+     */
     public int Max(int x, int d) {
         if (x > d) {
             return x;
@@ -63,7 +82,12 @@ public class AVLTree {
             return x;
         }
     }
-    // Rotacion simple izquierda
+    
+    /**
+     * Este método rota un nodo a la izquierda de forma simple.
+     * @param c Nodo que se va a rotar.
+     * @return NodeAVL El nodo rotado.
+     */
     public NodeAVL LeftRotation(NodeAVL c) {
         NodeAVL aux = c.getLeft();
         c.setLeft(aux.getRight());
@@ -72,7 +96,12 @@ public class AVLTree {
         aux.setFe(Max(GetFE(aux.getLeft()),GetFE(aux.getRight()))+1);
         return aux;
     }
-    // Rotacion simple derecha
+    
+    /**
+     * Este método rota un nodo a la derecha de forma simple.
+     * @param c Nodo que se va a rotar.
+     * @return NodeAVL El nodo rotado.
+     */
     public NodeAVL RightRotation(NodeAVL c) {
         NodeAVL aux = c.getRight();
         c.setRight(aux.getLeft());
@@ -81,14 +110,24 @@ public class AVLTree {
         aux.setFe(Max(GetFE(aux.getLeft()),GetFE(aux.getRight()))+1);
         return aux;
     }
-    // Rotacion doble izquierda
+    
+    /**
+     * Este método rota un nodo a la izquierda de forma doble.
+     * @param c Nodo que se va a rotar.
+     * @return NodeAVL El nodo rotado.
+     */
     public NodeAVL LeftRotation1(NodeAVL c){
         NodeAVL aux;
         c.setLeft(RightRotation(c.getLeft()));
         aux= LeftRotation(c);
         return aux;
     }
-    // Rotacion doble derecha
+    
+    /**
+     * Este método rota un nodo a la derecha de forma doble.
+     * @param c Nodo que se va a rotar.
+     * @return NodeAVL El nodo rotado.
+     */
     public NodeAVL RightRotation1(NodeAVL c){
         NodeAVL aux;
         c.setRight(LeftRotation(c.getRight()));
@@ -146,6 +185,10 @@ public class AVLTree {
             root=insertAux(newNode,root);
         }
     }
+    /**
+     * Este método imprime en la consola el arbol en preorden.
+     * @param root Nodo que representa la raiz del arbol.
+     */
     public void printPreorder(NodeAVL root) {
         System.out.println(root.getData());
         if (root.getLeft() != null) {
@@ -157,6 +200,10 @@ public class AVLTree {
         }
     }
 
+    /**
+     * Este método imprime en la consola el arbol en postorden.
+     * @param root Nodo que representa la raiz del arbol.
+     */
     public void printPostorder(NodeAVL root) {
 
         if (root.getLeft() != null) {
@@ -170,6 +217,10 @@ public class AVLTree {
         System.out.println(root.getData());
     }
 
+    /**
+     * Este método imprime en la consola el arbol en  inorden.
+     * @param root Nodo que representa la raiz del arbol.
+     */
     public void printInorder(NodeAVL root) {
 
         if (root.getLeft() != null) {

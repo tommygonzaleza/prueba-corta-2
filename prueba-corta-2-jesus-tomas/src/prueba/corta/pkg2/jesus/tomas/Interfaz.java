@@ -18,6 +18,9 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
     }
     
+    /**
+     * Crea el arbol
+     */
     AVLTree arbol = new AVLTree();
 
     /**
@@ -189,6 +192,9 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
+        /**
+         * El condicional hace que solo permita ingresar valores numéricos
+         */
         char car = evt.getKeyChar();
         if (Character.isDigit(car)) {
             
@@ -200,6 +206,9 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         // TODO add your handling code here:
+        /**
+         * El condicional hace que solo permita ingresar valores numéricos
+         */
         char car = evt.getKeyChar();
         if (Character.isDigit(car)) {
             
@@ -211,6 +220,9 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
+        /**
+         * Obtiene el valor del input, lo inserta en el arbol y luego vacía el input para mejor UX.
+         */
         int numero = Integer.parseInt(jTextField1.getText());
         arbol.insert(numero);
         jTextField1.setText("");
