@@ -56,21 +56,11 @@ public class AVLTree {
         }
     }
     
-    /**
-     * Este método devuele la altura del arbol
-     * @param root Raíz del arbol
-     * @return int Número cuyo valor representa la altura del arbol.
-     */
-    public int getHeight(NodeAVL root){
-        if(root==null){
-            return 0;
-        } else {
-            return Math.max(getHeight(root.getLeft()), getHeight(root.getRight()))+1;
-        }
-    }
+    
+    
 
     /**
-     * Este método devuelve el peso del nodo.
+     * Este método devuelve el peso del nodo(Altura).
      * @param x Nodo del que se quiere obtener su peso.
      * @return int Número con el valor del peso.
      */
@@ -156,7 +146,10 @@ public class AVLTree {
      */
     private NodeAVL Auxinsert(NodeAVL x, int data) {
         NodeAVL nuevo= new NodeAVL(data);
-        if (x == null) return nuevo;
+        if (x == null){
+            return nuevo;
+        } 
+            
         
         if (data < x.getData()) {
             x.setLeft(Auxinsert(x.getLeft(),data)); 
@@ -202,38 +195,7 @@ public class AVLTree {
         a.setFe(Math.max(GetFE(a.getLeft()),GetFE(a.getRight()))+1);
         return a;
     }
-    
-    /**
-     * Este método busca el padre del nodo que se inserta.
-     * @param root Nodo del padre de un nodo nodo.
-     * @param data Número que se le va a insertar al nodo.
-     * @return NodeAVL Nodo del padre.
-     */
-    public NodeAVL SearchFather(NodeAVL root, int data) {
-        NodeAVL encontrado = null;
-        if (data < root.getData()) {
-            if (encontrado != null) {
-                return encontrado;
-
-            } else if (root.getLeft() != null) {
-                encontrado = SearchFather(root.getLeft(), data);
-
-            } else {
-                return root;
-            }
-        } else if (data > root.getData()) {
-            if (encontrado != null) {
-                return encontrado;
-
-            } else if (root.getRight() != null) {
-                encontrado = SearchFather(root.getRight(), data);
-
-            } else {
-                return root;
-            }
-        }
-        return encontrado;
-    }
+   
     
     /**
      * Este método devuelve el nodo que tenga el valor numérico más bajo.
@@ -247,12 +209,10 @@ public class AVLTree {
             return Min(n.getLeft());
         }
     }
-    
     /**
-     * Este método elimina un nodo y lo devuelve.
-     * @param valor Número que representa el valor del nodo que se desea eliminar.
-     * @param root Nodo raíz del arbol.
-     * @return NodeAVL Nodo que se elimina.
+     * Este metodo elimina el nodo minimo del arbol
+     * @param x la raiz del arbol
+     * @return balance(x) retorna x balanceada
      */
     public NodeAVL deleteMin(NodeAVL x) {
         if (x.getLeft() == null) return x.getRight();
@@ -261,9 +221,16 @@ public class AVLTree {
         x.setFe(1 + Math.max(GetFE(x.getLeft()), GetFE(x.getRight()))); 
         return balance(x);
     }
+    /**
+     * Este método es un auxiliar de eliminar, que elimina y balancea el arbol.
+     * @param val Número que representa el valor del nodo que se desea eliminar.
+     * @param x  raiz de subarbol.
+     * @return balance(x) la funcion balance de x.
+     */
+    
     public NodeAVL auxdelete(NodeAVL x, int val) {
         if (x==null) {
-            JOptionPane.showMessageDialog(null, "El numero no se encuentra");
+            
         }
         else if (val < x.getData()) {
             x.setLeft(auxdelete(x.getLeft(), val)); 
@@ -289,7 +256,10 @@ public class AVLTree {
         x.setFe(1 + Math.max(GetFE(x.getLeft()), GetFE(x.getRight()))); 
         return balance(x);
     }  
-    
+    /**
+     * Esta funcion llama a la funcion aux delete.
+     * @param val valor que se desea eliminar 
+     */
     public void delete(int val) {
         root = auxdelete(root, val);
     }
