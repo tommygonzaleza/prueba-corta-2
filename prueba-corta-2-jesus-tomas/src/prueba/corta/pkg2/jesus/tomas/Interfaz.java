@@ -34,7 +34,7 @@ public class Interfaz extends javax.swing.JFrame {
         JFrame ventana = new JFrame();
         ventana.getContentPane().add(canvas);
         ventana.setDefaultCloseOperation(3);
-        ventana.setSize(600, 600);
+        ventana.setSize(800, 400);
         ventana.setVisible(true);
         return "Arbol mostrado.";
     }
